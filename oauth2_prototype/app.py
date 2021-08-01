@@ -27,11 +27,6 @@ class AuthRequestBody(BaseModel):
     provider: str
 
 
-@app.get('/')
-async def root():
-    return {}
-
-
 @app.api_route('/prototypes/{provider}', methods=['GET', 'POST'])
 async def google_oauth_handler(request: Request, provider: str):
     response = JSONResponse()
@@ -65,14 +60,11 @@ async def me(body: AuthRequestBody):
         if r and not r.status == 200:
             raise HTTPException(401, detail='EXPIRED_TOKEN')
 
-    if credentials.expire_in <= 0:
-        raise HTTPException(401, detail='EXPIRED_TOKEN')
-
-    if provider == 'google':
+    if provider.lower() == 'google':
         api_url = 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json'
         parser = User.from_google
 
-    if provider == 'github':
+    if provider.lower() == 'github':
         api_url = 'https://api.github.com/user'
         parser = User.from_github
 
@@ -81,5 +73,5 @@ async def me(body: AuthRequestBody):
     })
 
     return {
-        'user': parser(response.data),
+        'user': parser(response.data).as_dict(),
     }

@@ -27,7 +27,7 @@ class FastAPIAdapter(BaseAdapter):
         return self.request.cookies
 
     def write(self, value):
-        self.response += value
+        self.response.body += value.encode('utf-8')
 
     def set_header(self, key, value):
         self.response.headers[key] = value
