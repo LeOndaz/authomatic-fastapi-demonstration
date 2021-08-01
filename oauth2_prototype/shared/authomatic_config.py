@@ -7,7 +7,7 @@ CONFIG = {
         'id': provider_id(),
         'class_': oauth2.Google,
         'consumer_key': 'YOUR_CLIENT_ID',
-        'consumer_secret': YOUR_CLIENT_SECRET',
+        'consumer_secret': 'YOUR_CLIENT_SECRET',
         'scope': [
             'profile',
             'email',
