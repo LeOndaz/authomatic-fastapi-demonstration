@@ -19,8 +19,7 @@ class FastAPIAdapter(BaseAdapter):
 
     @property
     def url(self):
-        # remove leading slash from request.url.path
-        return str(self.request.base_url) + str(self.request.url.path)[1:]
+        return str(self.request.url)
 
     @property
     def cookies(self):
