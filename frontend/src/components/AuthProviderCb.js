@@ -30,23 +30,8 @@ export const AuthProviderCb = () => {
             setGitHubOAuth2Token(token);
         }
 
-        fetch('http://localhost:8000/me', {
-            method: 'POST',
-            body: JSON.stringify({
-                token,
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        }).then(r => r.json()).then(r => {
-            console.log(r.user);
-            setUser(r.user);
-        }).catch(err => {
-            console.log(err);
-        })
-
         history.push('/me')
-    }, [token, setGoogleOAuth2Token, setGitHubOAuth2Token, provider, history, setUser])
+    }, [token, setGoogleOAuth2Token, setGitHubOAuth2Token, provider, history])
 
 
     return null;

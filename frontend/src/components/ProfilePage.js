@@ -12,7 +12,7 @@ export const ProfilePage = () => {
         if (!isLoading && !user){
             history.push('/');
         }
-    }, [user, history])
+    }, [isLoading])
 
     return (
         <div>

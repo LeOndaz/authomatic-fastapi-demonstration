@@ -9,11 +9,10 @@ export const useQueryCurrentAuthUser = () => {
     const github_token = get('github_token');
     const user = useUser();
     const setUser = useSetUser();
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         if (!github_token && !google_token) return;
-        setIsLoading(true);
 
         fetch('http://localhost:8000/me', {
             method: 'POST',
@@ -26,8 +25,8 @@ export const useQueryCurrentAuthUser = () => {
             }
         }).then(r => r.json())
             .then((r) => {
-                setIsLoading(false);
                 setUser(r.user);
+                setIsLoading(false);
             })
             .catch(err => {
                 console.log('Err..')
